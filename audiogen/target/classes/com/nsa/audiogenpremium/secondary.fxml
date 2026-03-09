@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="10.0"
+      xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nsa.audiogenpremium.SecondaryController">
+    <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/></padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="📂 Select and Split PDF" onAction="#handleUpload"/>
+        <Button text="⇄ Switch to Primary"     onAction="#switchToPrimary"/>
+    </HBox>
+
+    <SplitPane dividerPositions="0.28" VBox.vgrow="ALWAYS"
+               style="-fx-background-color: #f4f4f4;">
+
+        <!-- ── Left panel ── -->
+        <VBox spacing="6" style="-fx-padding: 10;">
+            <Label text="PAGES"
+                   style="-fx-font-size: 13; -fx-font-weight: bold; -fx-text-fill: #555;"/>
+
+            <!-- Fetch controls -->
+            <HBox spacing="6" alignment="CENTER_LEFT">
+                <Button text="☑ Select All"    onAction="#handleSelectAll"    style="-fx-font-size: 11;"/>
+                <Button text="⬇ Fetch Selected" onAction="#handleFetchSelected" style="-fx-font-size: 11;"/>
+                <Button text="⬇ Fetch All"      onAction="#handleFetchAll"      style="-fx-font-size: 11;"/>
+            </HBox>
+
+            <ListView fx:id="jsonListView" VBox.vgrow="ALWAYS"
+                      style="-fx-background-radius: 5;"/>
+        </VBox>
+
+        <!-- ── Right panel ── -->
+        <TabPane fx:id="pdfTabPane" tabClosingPolicy="ALL_TABS"/>
+    </SplitPane>
+</VBox>
