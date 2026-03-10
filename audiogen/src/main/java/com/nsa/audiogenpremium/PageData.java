@@ -1,7 +1,5 @@
-
 package com.nsa.audiogenpremium;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +8,8 @@ import java.util.Map;
 public class PageData {
     private int pageNumber;
     private String filePath;
-    private List<Map<String, String>> wordsinfo; // [{arabic:"", bangla:""}]
+    private int totalWords;
+    private List<Map<String, String>> wordsinfo;
 
     public PageData() {
     }
@@ -28,19 +27,41 @@ public class PageData {
         return filePath;
     }
 
+    public int getTotalWords() {
+        return totalWords;
+    }
+
     public List<Map<String, String>> getWordsinfo() {
         return wordsinfo;
     }
 
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
+    public void setPageNumber(int v) {
+        pageNumber = v;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFilePath(String v) {
+        filePath = v;
     }
 
-    public void setWordsinfo(List<Map<String, String>> wordsinfo) {
-        this.wordsinfo = wordsinfo;
+    public void setTotalWords(int v) {
+        totalWords = v;
+    }
+
+    public void setWordsinfo(List<Map<String, String>> v) {
+        wordsinfo = v;
+    }
+
+    public boolean isFullyChecked() {
+        if (wordsinfo == null || wordsinfo.isEmpty())
+            return false;
+        return wordsinfo.stream()
+                .allMatch(m -> "true".equalsIgnoreCase(m.getOrDefault("checked", "false")));
+    }
+
+    public boolean isTertiaryFullyChecked() {
+        if (wordsinfo == null || wordsinfo.isEmpty())
+            return false;
+        return wordsinfo.stream()
+                .allMatch(m -> "true".equalsIgnoreCase(m.getOrDefault("tertiaryChecked", "false")));
     }
 }

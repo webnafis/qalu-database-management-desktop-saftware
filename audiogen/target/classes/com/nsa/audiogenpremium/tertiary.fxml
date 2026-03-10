@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="8"
+      xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nsa.audiogenpremium.TertiaryController">
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+    <!-- Top bar -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="⬅ Back to Secondary" onAction="#switchToSecondary"/>
+        <Label  text="Word Editor"
+                style="-fx-font-size: 15; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="saveBtn" text="💾 Save" onAction="#handleSave"
+                style="-fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Main split -->
+    <SplitPane dividerPositions="0.22" VBox.vgrow="ALWAYS">
+
+        <!-- Left: page list -->
+        <VBox spacing="6" minWidth="160" style="-fx-padding: 8;">
+            <Label text="PAGES"
+                   style="-fx-font-weight: bold; -fx-font-size: 12; -fx-text-fill: #555;"/>
+            <ListView fx:id="pageListView" VBox.vgrow="ALWAYS"/>
+            <HBox spacing="6" alignment="CENTER">
+                <Button fx:id="prevBtn" text="◀ Prev" onAction="#handlePrev"/>
+                <Label  fx:id="pageInfoLabel" text="— / —"
+                        style="-fx-font-size: 11; -fx-text-fill: #666;"/>
+                <Button fx:id="nextBtn" text="Next ▶" onAction="#handleNext"/>
+            </HBox>
+        </VBox>
+
+        <!-- Right: word detail -->
+        <VBox spacing="6" style="-fx-padding: 8;">
+            <Label fx:id="selectedPageLabel" text="No page selected"
+                   style="-fx-font-size: 13; -fx-font-weight: bold;"/>
+
+            <!-- Bulk toolbar (no Arabic Parts bulk) -->
+            <HBox spacing="6" alignment="CENTER_LEFT"
+                  style="-fx-padding: 4 6 4 6; -fx-background-color: #f0f0f0; -fx-background-radius: 5;">
+                <Button text="☑ Sel/Desel All"  onAction="#handleSelectAllWords" style="-fx-font-size: 11;"/>
+                <Separator orientation="VERTICAL"/>
+                <Label text="Generate:" style="-fx-font-size: 10; -fx-text-fill:#555;"/>
+                <Button text="🖼 Images"         onAction="#handleGenerateImages"  style="-fx-font-size: 11;"/>
+                <Button text="🔊 Audio"          onAction="#handleGenerateAudio"   style="-fx-font-size: 11;"/>
+                <Separator orientation="VERTICAL"/>
+                <Button text="✅ Check All"      onAction="#handleCheckAllWords"
+                        style="-fx-font-size: 11; -fx-text-fill: #2a7a2a; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <TableView fx:id="wordsTable" VBox.vgrow="ALWAYS"
+                       style="-fx-font-size: 12;"/>
+        </VBox>
+    </SplitPane>
+</VBox>

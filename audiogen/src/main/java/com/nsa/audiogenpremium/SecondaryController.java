@@ -3,6 +3,8 @@ package com.nsa.audiogenpremium;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -12,12 +14,17 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -29,26 +36,34 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SecondaryController {
+    @FXML
+    private void switchToTertiary() throws IOException {
+        App.setRoot("tertiary");
+    }
 
     @FXML
     private TabPane pdfTabPane;
     @FXML
     private ListView<PageData> jsonListView;
+    @FXML
+    private Button switchToPrimaryBtn; // ← needs fx:id in FXML
 
     private static final String JSON_PATH = "output_data.json";
     private final ObjectMapper mapper = new ObjectMapper();
     private final ObservableList<PageData> masterList = FXCollections.observableArrayList();
 
-    // ── Transient UI state (not persisted) ───────────────────────────────────
     private final Set<Integer> selectedPages = new HashSet<>();
     private final Map<Integer, FetchStatus> fetchStatusMap = new ConcurrentHashMap<>();
+
+    // Track open words windows so we never open two for the same page
+    private final Map<Integer, Stage> openWordsWindows = new HashMap<>();
 
     private enum FetchStatus {
         IDLE, LOADING, DONE, ERROR
     }
 
     // =========================================================================
-    // FXML wiring
+    // Init
     // =========================================================================
 
     @FXML
@@ -58,24 +73,19 @@ public class SecondaryController {
 
     @FXML
     public void initialize() {
-        // Restore DONE status for pages that already have wordsinfo
-        masterList.forEach(p -> {
-            if (p.getWordsinfo() != null && !p.getWordsinfo().isEmpty())
-                fetchStatusMap.put(p.getPageNumber(), FetchStatus.DONE);
-        });
-
         jsonListView.setCellFactory(lv -> new PageCell());
         jsonListView.getSelectionModel().selectedItemProperty()
                 .addListener((obs, o, n) -> {
                     if (n != null)
                         openPdfInTab(n);
                 });
-
         loadDataFromFile();
         jsonListView.setItems(masterList);
     }
 
-    // ── Toolbar actions ───────────────────────────────────────────────────────
+    // =========================================================================
+    // Toolbar actions
+    // =========================================================================
 
     @FXML
     public void handleSelectAll() {
@@ -91,8 +101,7 @@ public class SecondaryController {
     @FXML
     public void handleFetchSelected() {
         List<PageData> toFetch = masterList.stream()
-                .filter(p -> selectedPages.contains(p.getPageNumber()))
-                .toList();
+                .filter(p -> selectedPages.contains(p.getPageNumber())).toList();
         if (!toFetch.isEmpty())
             fetchSequentially(toFetch, 0);
     }
@@ -100,6 +109,65 @@ public class SecondaryController {
     @FXML
     public void handleFetchAll() {
         fetchSequentially(new ArrayList<>(masterList), 0);
+    }
+
+    @FXML
+    public void handleForceFetchSelected() {
+        List<PageData> toFetch = masterList.stream()
+                .filter(p -> selectedPages.contains(p.getPageNumber())).toList();
+        if (!toFetch.isEmpty())
+            fetchSequentiallyForced(toFetch, 0);
+    }
+
+    @FXML
+    public void handleForceFetchAll() {
+        fetchSequentiallyForced(new ArrayList<>(masterList), 0);
+    }
+
+    // Same as fetchSequentially but skips the confirmation dialog entirely
+    private void fetchSequentiallyForced(List<PageData> pages, int index) {
+        if (index >= pages.size())
+            return;
+        PageData page = pages.get(index);
+
+        fetchStatusMap.put(page.getPageNumber(), FetchStatus.LOADING);
+        Platform.runLater(() -> jsonListView.refresh());
+
+        Task<FetchResult> task = new Task<>() {
+            @Override
+            protected FetchResult call() throws Exception {
+                return fetchWordsFromPdf(new File(page.getFilePath()));
+            }
+        };
+        task.setOnSucceeded(e -> {
+            FetchResult result = task.getValue();
+
+            // Still preserve checked flags even on force re-fetch
+            Map<Integer, String> checkedFlags = new HashMap<>();
+            if (page.getWordsinfo() != null)
+                for (int i = 0; i < page.getWordsinfo().size(); i++)
+                    checkedFlags.put(i, page.getWordsinfo().get(i).getOrDefault("checked", "false"));
+
+            for (int i = 0; i < result.words().size(); i++)
+                result.words().get(i).put("checked", checkedFlags.getOrDefault(i, "false"));
+
+            page.setWordsinfo(result.words());
+            page.setTotalWords(result.totalWords());
+            fetchStatusMap.put(page.getPageNumber(), FetchStatus.DONE);
+            saveJsonToFile();
+            Platform.runLater(() -> jsonListView.refresh());
+            fetchSequentiallyForced(pages, index + 1);
+        });
+        task.setOnFailed(e -> {
+            fetchStatusMap.put(page.getPageNumber(), FetchStatus.ERROR);
+            System.err.println("Force fetch failed p" + page.getPageNumber()
+                    + ": " + task.getException().getMessage());
+            Platform.runLater(() -> jsonListView.refresh());
+            fetchSequentiallyForced(pages, index + 1);
+        });
+        Thread t = new Thread(task);
+        t.setDaemon(true);
+        t.start();
     }
 
     @FXML
@@ -112,57 +180,103 @@ public class SecondaryController {
     }
 
     // =========================================================================
-    // Sequential fetch logic
+    // Sequential fetch
     // =========================================================================
-
     private void fetchSequentially(List<PageData> pages, int index) {
         if (index >= pages.size())
             return;
-
         PageData page = pages.get(index);
+
+        // ── Confirm before overwriting existing data ──────────────────────────────
+        boolean hasExisting = page.getWordsinfo() != null && !page.getWordsinfo().isEmpty();
+        if (hasExisting) {
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Re-fetch Confirmation");
+            confirm.setHeaderText("Page " + page.getPageNumber() + " already has word data.");
+            confirm.setContentText("Fetching again will overwrite the existing "
+                    + page.getWordsinfo().size() + " word(s).\n\nContinue?");
+
+            // Custom buttons so it's crystal clear
+            ButtonType btnYes = new ButtonType("Yes, Re-fetch", ButtonBar.ButtonData.YES);
+            ButtonType btnSkip = new ButtonType("Skip This Page", ButtonBar.ButtonData.NO);
+            ButtonType btnCancelAll = new ButtonType("Cancel All", ButtonBar.ButtonData.CANCEL_CLOSE);
+            confirm.getButtonTypes().setAll(btnYes, btnSkip, btnCancelAll);
+
+            Optional<ButtonType> result = confirm.showAndWait();
+
+            if (result.isEmpty() || result.get() == btnCancelAll) {
+                return; // stop the whole queue
+            }
+            if (result.get() == btnSkip) {
+                fetchSequentially(pages, index + 1); // skip, move to next
+                return;
+            }
+            // btnYes → fall through to fetch
+        }
+
+        // ── Proceed with fetch ────────────────────────────────────────────────────
         fetchStatusMap.put(page.getPageNumber(), FetchStatus.LOADING);
         Platform.runLater(() -> jsonListView.refresh());
 
-        Task<List<Map<String, String>>> task = new Task<>() {
+        Task<FetchResult> task = new Task<>() {
             @Override
-            protected List<Map<String, String>> call() throws Exception {
+            protected FetchResult call() throws Exception {
                 return fetchWordsFromPdf(new File(page.getFilePath()));
             }
         };
-
         task.setOnSucceeded(e -> {
-            page.setWordsinfo(task.getValue());
+            FetchResult result = task.getValue();
+
+            // Preserve existing checked flags by index
+            Map<Integer, String> checkedFlags = new HashMap<>();
+            if (page.getWordsinfo() != null)
+                for (int i = 0; i < page.getWordsinfo().size(); i++)
+                    checkedFlags.put(i, page.getWordsinfo().get(i).getOrDefault("checked", "false"));
+
+            for (int i = 0; i < result.words().size(); i++)
+                result.words().get(i).put("checked", checkedFlags.getOrDefault(i, "false"));
+
+            page.setWordsinfo(result.words());
+            page.setTotalWords(result.totalWords());
             fetchStatusMap.put(page.getPageNumber(), FetchStatus.DONE);
             saveJsonToFile();
             Platform.runLater(() -> jsonListView.refresh());
-            fetchSequentially(pages, index + 1); // ← next page
+            fetchSequentially(pages, index + 1);
         });
-
         task.setOnFailed(e -> {
             fetchStatusMap.put(page.getPageNumber(), FetchStatus.ERROR);
-            System.err.println("Fetch failed for page " + page.getPageNumber()
+            System.err.println("Fetch failed p" + page.getPageNumber()
                     + ": " + task.getException().getMessage());
             Platform.runLater(() -> jsonListView.refresh());
-            fetchSequentially(pages, index + 1); // ← continue anyway
+            fetchSequentially(pages, index + 1);
         });
-
         Thread t = new Thread(task);
         t.setDaemon(true);
         t.start();
     }
 
+    // ── Fetch result wrapper ──────────────────────────────────────────────────
+    private record FetchResult(List<Map<String, String>> words, int totalWords) {
+    }
+
     // =========================================================================
     // ★ REPLACE THIS with your real implementation later ★
     // =========================================================================
-    private List<Map<String, String>> fetchWordsFromPdf(File pdfFile) throws Exception {
-        // TODO: implement actual fetch using pdfFile
-        // Must return a List of maps, each map having "arabic" and "bangla" keys.
-        // Example placeholder:
-        Thread.sleep(1000); // simulate network/processing delay
-        List<Map<String, String>> result = new ArrayList<>();
-        result.add(Map.of("arabic", "مرحبا", "bangla", "হ্যালো"));
-        result.add(Map.of("arabic", "كتاب", "bangla", "বই"));
-        return result;
+    private FetchResult fetchWordsFromPdf(File pdfFile) throws Exception {
+        Thread.sleep(1000); // simulate delay
+        List<Map<String, String>> words = new ArrayList<>();
+        words.add(mapOf("مرحبا", "হ্যালো"));
+        words.add(mapOf("كتاب", "বই"));
+        words.add(mapOf("قلم", "কলম"));
+        return new FetchResult(words, words.size());
+    }
+
+    private static Map<String, String> mapOf(String arabic, String bangla) {
+        Map<String, String> m = new LinkedHashMap<>();
+        m.put("arabic", arabic);
+        m.put("bangla", bangla);
+        m.put("checked", "false");
+        return m;
     }
 
     // =========================================================================
@@ -170,16 +284,23 @@ public class SecondaryController {
     // =========================================================================
 
     private class PageCell extends ListCell<PageData> {
-
         private final CheckBox checkBox = new CheckBox();
         private final Label pageLabel = new Label();
         private final Label statusIcon = new Label();
+        private final Label checkedBadge = new Label("☑ All Checked");
+        private final Label wordCountLabel = new Label();
         private final Button wordsBtn = new Button("▼ Words");
-        private final HBox row = new HBox(8, checkBox, pageLabel, statusIcon, wordsBtn);
+
+        private final HBox row;
 
         PageCell() {
+            checkedBadge.setStyle("-fx-text-fill: #2a7a2a; -fx-font-weight: bold; -fx-font-size: 10;");
+            wordCountLabel.setStyle("-fx-text-fill: #666; -fx-font-size: 10;");
+
+            VBox labelBox = new VBox(2, pageLabel, wordCountLabel);
+            row = new HBox(8, checkBox, labelBox, statusIcon, checkedBadge, wordsBtn);
             row.setAlignment(Pos.CENTER_LEFT);
-            HBox.setHgrow(pageLabel, Priority.ALWAYS);
+            HBox.setHgrow(labelBox, Priority.ALWAYS);
             setStyle("-fx-padding: 6 8 6 8;");
 
             checkBox.setOnAction(e -> {
@@ -195,7 +316,7 @@ public class SecondaryController {
             wordsBtn.setOnAction(e -> {
                 PageData item = getItem();
                 if (item != null)
-                    showWordsDialog(item);
+                    openWordsWindow(item);
             });
         }
 
@@ -210,6 +331,13 @@ public class SecondaryController {
             checkBox.setSelected(selectedPages.contains(item.getPageNumber()));
             pageLabel.setText("📄 Page " + item.getPageNumber());
 
+            // Word count label
+            if (item.getTotalWords() > 0)
+                wordCountLabel.setText(item.getTotalWords() + " words");
+            else
+                wordCountLabel.setText("");
+
+            // Status icon
             FetchStatus st = fetchStatusMap.getOrDefault(item.getPageNumber(), FetchStatus.IDLE);
             switch (st) {
                 case LOADING -> {
@@ -230,30 +358,51 @@ public class SecondaryController {
                 }
             }
 
+            // All-checked badge
+            boolean fullyChecked = item.isFullyChecked();
+            checkedBadge.setVisible(fullyChecked);
+            checkedBadge.setManaged(fullyChecked);
+
+            // Words button
             boolean hasWords = item.getWordsinfo() != null && !item.getWordsinfo().isEmpty();
             wordsBtn.setDisable(!hasWords);
-            wordsBtn.setVisible(true);
 
             setGraphic(row);
         }
     }
 
     // =========================================================================
-    // Words dialog — editable table of arabic / bangla pairs
+    // Words window — modeless Stage, disables switchToPrimary + window close
     // =========================================================================
 
-    private void showWordsDialog(PageData page) {
-        // Build observable list of WordEntry from page's wordsinfo
-        ObservableList<WordEntry> entries = FXCollections.observableArrayList();
-        if (page.getWordsinfo() != null) {
-            page.getWordsinfo().forEach(m -> entries.add(
-                    new WordEntry(m.getOrDefault("arabic", ""), m.getOrDefault("bangla", ""))));
+    private void openWordsWindow(PageData page) {
+        if (openWordsWindows.containsKey(page.getPageNumber())) {
+            openWordsWindows.get(page.getPageNumber()).toFront();
+            return;
         }
 
-        // TableView
+        ObservableList<WordEntry> entries = FXCollections.observableArrayList();
+        if (page.getWordsinfo() != null)
+            page.getWordsinfo().forEach(m -> entries.add(new WordEntry(
+                    m.getOrDefault("arabic", ""),
+                    m.getOrDefault("bangla", ""),
+                    "true".equalsIgnoreCase(m.getOrDefault("checked", "false")))));
+
+        // ── Font size state ───────────────────────────────────────────────────────
+        final double[] fontSize = { 14.0 };
+
+        // ── Table ─────────────────────────────────────────────────────────────────
         TableView<WordEntry> table = new TableView<>(entries);
         table.setEditable(true);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setStyle("-fx-font-size: " + fontSize[0] + "px;");
+
+        // Recalculate row height when font changes
+        Runnable applyFont = () -> {
+            table.setStyle("-fx-font-size: " + fontSize[0] + "px;");
+            table.setFixedCellSize(fontSize[0] * 2.6);
+            table.refresh();
+        };
 
         TableColumn<WordEntry, String> arabicCol = new TableColumn<>("Arabic");
         arabicCol.setCellValueFactory(d -> d.getValue().arabicProperty());
@@ -265,45 +414,155 @@ public class SecondaryController {
         banglaCol.setCellFactory(TextFieldTableCell.forTableColumn());
         banglaCol.setOnEditCommit(e -> e.getRowValue().setBangla(e.getNewValue()));
 
-        table.getColumns().addAll(arabicCol, banglaCol);
-        table.setPrefSize(480, 420);
+        TableColumn<WordEntry, Boolean> checkedCol = new TableColumn<>("Checked");
+        checkedCol.setCellValueFactory(d -> d.getValue().checkedProperty());
+        checkedCol.setCellFactory(CheckBoxTableCell.forTableColumn(checkedCol));
+        checkedCol.setEditable(true);
+        checkedCol.setMaxWidth(80);
+        checkedCol.setMinWidth(80);
 
-        // Dialog
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Words — Page " + page.getPageNumber());
-        dialog.setHeaderText(null);
-        dialog.getDialogPane().setContent(table);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        dialog.getDialogPane().setPrefWidth(500);
+        entries.forEach(en -> en.checkedProperty().addListener((obs, o, n) -> {
+            syncCheckedToPage(page, entries);
+            Platform.runLater(() -> jsonListView.refresh());
+        }));
 
-        dialog.showAndWait().ifPresent(btn -> {
-            if (btn != ButtonType.OK)
-                return;
-            // Write edits back to page
-            List<Map<String, String>> updated = new ArrayList<>();
-            entries.forEach(en -> {
-                Map<String, String> m = new LinkedHashMap<>();
-                m.put("arabic", en.getArabic());
-                m.put("bangla", en.getBangla());
-                updated.add(m);
-            });
-            page.setWordsinfo(updated);
+        table.getColumns().addAll(arabicCol, banglaCol, checkedCol);
+
+        // ── Zoom controls ─────────────────────────────────────────────────────────
+        Button zoomIn = new Button("A+");
+        Button zoomOut = new Button("A−");
+        Button zoomReset = new Button("A↺");
+        Label zoomLabel = new Label(String.format("%.0fpx", fontSize[0]));
+
+        zoomIn.setStyle("-fx-font-weight: bold;");
+        zoomOut.setStyle("-fx-font-weight: bold;");
+
+        zoomIn.setOnAction(e -> {
+            fontSize[0] = Math.min(32, fontSize[0] + 2);
+            zoomLabel.setText(String.format("%.0fpx", fontSize[0]));
+            applyFont.run();
+        });
+        zoomOut.setOnAction(e -> {
+            fontSize[0] = Math.max(8, fontSize[0] - 2);
+            zoomLabel.setText(String.format("%.0fpx", fontSize[0]));
+            applyFont.run();
+        });
+        zoomReset.setOnAction(e -> {
+            fontSize[0] = 14;
+            zoomLabel.setText("14px");
+            applyFont.run();
+        });
+
+        // Also support Ctrl+scroll on the table
+        table.setOnScroll(e -> {
+            if (e.isControlDown()) {
+                fontSize[0] = Math.max(8, Math.min(32, fontSize[0] + (e.getDeltaY() > 0 ? 2 : -2)));
+                zoomLabel.setText(String.format("%.0fpx", fontSize[0]));
+                applyFont.run();
+                e.consume();
+            }
+        });
+
+        // ── Other toolbar items ───────────────────────────────────────────────────
+        Button checkAllBtn = new Button("☑ Check All");
+        Button uncheckAllBtn = new Button("☐ Uncheck All");
+        Button saveBtn = new Button("💾 Save");
+        Label totalLbl = new Label("Total words: " + page.getTotalWords());
+        totalLbl.setStyle("-fx-font-weight: bold;");
+
+        checkAllBtn.setOnAction(e -> entries.forEach(en -> en.setChecked(true)));
+        uncheckAllBtn.setOnAction(e -> entries.forEach(en -> en.setChecked(false)));
+        saveBtn.setOnAction(e -> {
+            writeEntriesToPage(page, entries);
             saveJsonToFile();
             jsonListView.refresh();
         });
+
+        Separator sep1 = new Separator(), sep2 = new Separator(), sep3 = new Separator();
+
+        ToolBar tb = new ToolBar(
+                zoomOut, zoomLabel, zoomIn, zoomReset, // zoom group
+                sep1,
+                checkAllBtn, uncheckAllBtn, // check group
+                sep2,
+                totalLbl, // info
+                sep3,
+                saveBtn // save
+        );
+
+        // Apply initial row height
+        applyFont.run();
+
+        VBox root = new VBox(tb, table);
+        VBox.setVgrow(table, Priority.ALWAYS);
+
+        // ── Stage ─────────────────────────────────────────────────────────────────
+        Stage wordsStage = new Stage();
+        wordsStage.setTitle("Words — Page " + page.getPageNumber());
+        wordsStage.initModality(Modality.NONE);
+        wordsStage.setScene(new Scene(root, 560, 520));
+
+        openWordsWindows.put(page.getPageNumber(), wordsStage);
+        lockMainWindow();
+
+        wordsStage.setOnCloseRequest(e -> {
+            writeEntriesToPage(page, entries);
+            saveJsonToFile();
+            jsonListView.refresh();
+            openWordsWindows.remove(page.getPageNumber());
+            if (openWordsWindows.isEmpty())
+                unlockMainWindow();
+        });
+
+        wordsStage.show();
+    }
+
+    // ── Write WordEntry list back into page's wordsinfo ───────────────────────
+    private void writeEntriesToPage(PageData page, ObservableList<WordEntry> entries) {
+        List<Map<String, String>> updated = new ArrayList<>();
+        entries.forEach(en -> {
+            Map<String, String> m = new LinkedHashMap<>();
+            m.put("arabic", en.getArabic());
+            m.put("bangla", en.getBangla());
+            m.put("checked", String.valueOf(en.isChecked()));
+            updated.add(m);
+        });
+        page.setWordsinfo(updated);
+    }
+
+    // ── Sync checked state to page whenever a checkbox changes ───────────────
+    private void syncCheckedToPage(PageData page, ObservableList<WordEntry> entries) {
+        writeEntriesToPage(page, entries);
+        saveJsonToFile();
+    }
+
+    // ── Lock / unlock the main window's sensitive controls ───────────────────
+    private void lockMainWindow() {
+        switchToPrimaryBtn.setDisable(true);
+        // Block the main window's X button
+        Stage mainStage = (Stage) jsonListView.getScene().getWindow();
+        mainStage.setOnCloseRequest(WindowEvent::consume);
+    }
+
+    private void unlockMainWindow() {
+        switchToPrimaryBtn.setDisable(false);
+        Stage mainStage = (Stage) jsonListView.getScene().getWindow();
+        mainStage.setOnCloseRequest(null); // restore default close behaviour
     }
 
     // =========================================================================
-    // WordEntry — JavaFX-property-backed model for the editable table
+    // WordEntry model
     // =========================================================================
 
     public static class WordEntry {
         private final StringProperty arabic = new SimpleStringProperty();
         private final StringProperty bangla = new SimpleStringProperty();
+        private final BooleanProperty checked = new SimpleBooleanProperty();
 
-        WordEntry(String arabic, String bangla) {
+        WordEntry(String arabic, String bangla, boolean checked) {
             this.arabic.set(arabic);
             this.bangla.set(bangla);
+            this.checked.set(checked);
         }
 
         public StringProperty arabicProperty() {
@@ -314,12 +573,20 @@ public class SecondaryController {
             return bangla;
         }
 
+        public BooleanProperty checkedProperty() {
+            return checked;
+        }
+
         public String getArabic() {
             return arabic.get();
         }
 
         public String getBangla() {
             return bangla.get();
+        }
+
+        public boolean isChecked() {
+            return checked.get();
         }
 
         public void setArabic(String v) {
@@ -329,10 +596,14 @@ public class SecondaryController {
         public void setBangla(String v) {
             bangla.set(v);
         }
+
+        public void setChecked(boolean v) {
+            checked.set(v);
+        }
     }
 
     // =========================================================================
-    // PDF viewer (unchanged from previous version)
+    // PDF viewer (unchanged)
     // =========================================================================
 
     private void openPdfInTab(PageData data) {
@@ -379,9 +650,8 @@ public class SecondaryController {
     }
 
     private float calcDpi(PDDocument doc, double viewportWidth, double zoom) {
-        float pageWidthPt = doc.getPage(0).getMediaBox().getWidth();
-        float pageWidthInches = pageWidthPt / 72f;
-        return (float) ((viewportWidth / pageWidthInches) * zoom);
+        float pw = doc.getPage(0).getMediaBox().getWidth();
+        return (float) ((viewportWidth / (pw / 72f)) * zoom);
     }
 
     private Pane buildPdfViewer(File pdfFile, List<Image> initialPages) {
@@ -425,8 +695,8 @@ public class SecondaryController {
                         }
                     });
                 } catch (InterruptedException ignored) {
-                } catch (Exception e) {
-                    System.err.println("Re-render failed: " + e.getMessage());
+                } catch (Exception ex) {
+                    System.err.println("Rerender: " + ex.getMessage());
                 }
             });
             t.setDaemon(true);
@@ -472,8 +742,7 @@ public class SecondaryController {
     }
 
     private Pane buildLoadingPane() {
-        ProgressIndicator pi = new ProgressIndicator();
-        VBox box = new VBox(12, pi, new Label("Rendering PDF…"));
+        VBox box = new VBox(12, new ProgressIndicator(), new Label("Rendering PDF…"));
         box.setAlignment(Pos.CENTER);
         return box;
     }
@@ -499,13 +768,12 @@ public class SecondaryController {
             List<PageData> loaded = mapper.readValue(file, new TypeReference<>() {
             });
             masterList.setAll(loaded);
-            // Restore done status for pages that already have words
             masterList.forEach(p -> {
                 if (p.getWordsinfo() != null && !p.getWordsinfo().isEmpty())
                     fetchStatusMap.put(p.getPageNumber(), FetchStatus.DONE);
             });
         } catch (IOException e) {
-            System.err.println("Could not load JSON: " + e.getMessage());
+            System.err.println("Load failed: " + e.getMessage());
         }
     }
 
