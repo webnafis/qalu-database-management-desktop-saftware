@@ -13,6 +13,8 @@ module com.nsa.audiogenpremium {
     requires dev.failsafe.core;
     requires com.google.common;
 
+    requires java.net.http; // ← for HttpClient
+
     requires org.apache.pdfbox;
     requires com.fasterxml.jackson.databind;
     requires javafx.graphics;

@@ -14,6 +14,7 @@
         <!-- fx:id required so controller can disable it when a words window is open -->
         <Button fx:id="switchToPrimaryBtn" text="⇄ Switch to Primary" onAction="#switchToPrimary"/>
         <Button text="📖 Open Word Editor" onAction="#switchToTertiary"/>
+        <Button text="🔑 API Key" onAction="#handleChangeApiKey" style="-fx-font-size: 11;"/>
     </HBox>
 
     <SplitPane dividerPositions="0.28" VBox.vgrow="ALWAYS"

@@ -57,12 +57,25 @@ public class TertiaryController {
         IMAGE, AUDIO, ARABIC_PARTS
     }
 
+    // ── Add this field at the top of TertiaryController ──────────────────────────
+    private boolean isDirty = false;
+
+    private void markDirty() {
+        isDirty = true;
+    }
+
+    private void clearDirty() {
+        isDirty = false;
+    }
+
     // =========================================================================
     // Init
     // =========================================================================
 
     @FXML
     private void switchToSecondary() throws IOException {
+        if (!checkUnsaved())
+            return;
         App.setRoot("secondary");
     }
 
@@ -81,8 +94,14 @@ public class TertiaryController {
         pageListView.setCellFactory(lv -> new PageCell());
         pageListView.getSelectionModel().selectedItemProperty()
                 .addListener((obs, o, n) -> {
-                    if (n != null)
-                        loadPageWords(n);
+                    if (n == null || n == currentPage)
+                        return;
+                    if (!checkUnsaved()) {
+                        // Revert the list selection back to current page without re-triggering
+                        Platform.runLater(() -> pageListView.getSelectionModel().select(currentPage));
+                        return;
+                    }
+                    loadPageWords(n);
                 });
         pageListView.setItems(allPages);
     }
@@ -142,8 +161,27 @@ public class TertiaryController {
         checkedCol.setEditable(true);
         checkedCol.setMinWidth(46);
         checkedCol.setMaxWidth(46);
+        // ── Verify with Gemini column
+        // ─────────────────────────────────────────────────
+        TableColumn<TertiaryWordEntry, TertiaryWordEntry> verifyCol = new TableColumn<>("Verify");
+        verifyCol.setCellValueFactory(d -> new SimpleObjectProperty<>(d.getValue()));
+        verifyCol.setCellFactory(c -> new VerifyCell());
+        verifyCol.setMinWidth(90);
+        verifyCol.setMaxWidth(90);
 
-        wordsTable.getColumns().addAll(selCol, arabicCol, banglaCol, imageCol, audioCol, partsCol, checkedCol);
+        // ── Parts concat check column (auto, no user action needed)
+        // ───────────────────
+        TableColumn<TertiaryWordEntry, TertiaryWordEntry> partsCheckCol = new TableColumn<>("Parts ✓");
+        partsCheckCol.setCellValueFactory(d -> new SimpleObjectProperty<>(d.getValue()));
+        partsCheckCol.setCellFactory(c -> new PartsCheckCell());
+        partsCheckCol.setMinWidth(60);
+        partsCheckCol.setMaxWidth(60);
+
+        wordsTable.getColumns().addAll(
+                selCol, arabicCol, banglaCol,
+                imageCol, audioCol, partsCol,
+                checkedCol, verifyCol, partsCheckCol // ← updated
+        );
     }
 
     // =========================================================================
@@ -189,6 +227,7 @@ public class TertiaryController {
 
             final int idx = i;
             entry.tertiaryCheckedProperty().addListener((obs, o, n) -> {
+                markDirty();
                 syncEntryToMap(page, idx, entry);
                 saveJsonToFile();
                 selectedPageLabel.setText("Page " + page.getPageNumber()
@@ -227,6 +266,8 @@ public class TertiaryController {
 
     @FXML
     public void handlePrev() {
+        if (!checkUnsaved())
+            return;
         int idx = allPages.indexOf(currentPage);
         if (idx > 0)
             pageListView.getSelectionModel().select(allPages.get(idx - 1));
@@ -234,6 +275,8 @@ public class TertiaryController {
 
     @FXML
     public void handleNext() {
+        if (!checkUnsaved())
+            return;
         int idx = allPages.indexOf(currentPage);
         if (idx < allPages.size() - 1)
             pageListView.getSelectionModel().select(allPages.get(idx + 1));
@@ -279,7 +322,32 @@ public class TertiaryController {
         for (int i = 0; i < currentEntries.size(); i++)
             syncEntryToMap(currentPage, i, currentEntries.get(i));
         saveJsonToFile();
+        clearDirty();
         flashSaveButton();
+    }
+
+    private boolean checkUnsaved() {
+        if (!isDirty)
+            return true;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Unsaved Changes");
+        alert.setHeaderText("You have unsaved changes.");
+        alert.setContentText("Do you want to save before leaving?");
+
+        ButtonType btnSave = new ButtonType("Save & Continue", ButtonBar.ButtonData.YES);
+        ButtonType btnDiscard = new ButtonType("Discard & Continue", ButtonBar.ButtonData.NO);
+        ButtonType btnCancel = new ButtonType("Stay Here", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(btnSave, btnDiscard, btnCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isEmpty() || result.get() == btnCancel)
+            return false;
+        if (result.get() == btnSave)
+            handleSave();
+        else
+            clearDirty();
+        return true;
     }
 
     private void flashSaveButton() {
@@ -300,13 +368,16 @@ public class TertiaryController {
     // =========================================================================
     // Sequential task runner
     // =========================================================================
-
     private void runSequential(List<TertiaryWordEntry> entries, int index, TaskType type) {
         if (index >= entries.size() || currentPage == null)
             return;
         TertiaryWordEntry entry = entries.get(index);
 
-        entry.setProcessing(true);
+        switch (type) {
+            case IMAGE -> entry.setImageProcessing(true);
+            case AUDIO -> entry.setAudioProcessing(true);
+            case ARABIC_PARTS -> entry.setPartsProcessing(true);
+        }
         Platform.runLater(() -> wordsTable.refresh());
 
         Task<String> task = new Task<>() {
@@ -326,17 +397,27 @@ public class TertiaryController {
                 case IMAGE -> {
                     deleteOldFile(entry.getImagePath());
                     entry.setImagePath(result);
+                    entry.setImageProcessing(false);
                 }
                 case AUDIO -> {
                     deleteOldFile(entry.getAudioPath());
                     entry.setAudioPath(result);
+                    entry.setAudioProcessing(false);
                 }
                 case ARABIC_PARTS -> {
-                    // single generated part — add to list
-                    entry.getArabicParts().add(result);
+                    try {
+                        List<String> freshParts = mapper.readValue(result,
+                                new TypeReference<List<String>>() {
+                                });
+                        entry.getArabicParts().setAll(freshParts); // ← setAll not add
+                    } catch (Exception ex) {
+                        System.err.println("Parts parse failed: " + ex.getMessage());
+                        entry.getArabicParts().setAll(List.of(result)); // fallback
+                    }
+                    entry.setPartsProcessing(false);
                 }
             }
-            entry.setProcessing(false);
+            markDirty();
             syncEntryToMap(currentPage, entry.getIndex(), entry);
             saveJsonToFile();
             Platform.runLater(() -> wordsTable.refresh());
@@ -344,7 +425,11 @@ public class TertiaryController {
         });
 
         task.setOnFailed(e -> {
-            entry.setProcessing(false);
+            switch (type) {
+                case IMAGE -> entry.setImageProcessing(false);
+                case AUDIO -> entry.setAudioProcessing(false);
+                case ARABIC_PARTS -> entry.setPartsProcessing(false);
+            }
             System.err.println("Task failed: " + task.getException().getMessage());
             Platform.runLater(() -> wordsTable.refresh());
             runSequential(entries, index + 1, type);
@@ -354,7 +439,6 @@ public class TertiaryController {
         t.setDaemon(true);
         t.start();
     }
-
     // =========================================================================
     // File deletion helper (with confirmation)
     // =========================================================================
@@ -395,8 +479,19 @@ public class TertiaryController {
     }
 
     private String generateArabicParts(String arabic) throws Exception {
-        Thread.sleep(300);
-        return arabic; // return one part string
+        GeminiService svc = getGeminiService();
+        if (svc == null)
+            throw new RuntimeException("No Gemini API key.");
+        List<String> parts = svc.extractArabicParts(arabic);
+        return mapper.writeValueAsString(parts); // stored as JSON array string
+    }
+
+    // Add this helper to TertiaryController if not already there
+    private GeminiService getGeminiService() {
+        String key = ApiKeyManager.load();
+        if (key.isEmpty())
+            return null;
+        return new GeminiService(key);
     }
 
     // =========================================================================
@@ -483,7 +578,7 @@ public class TertiaryController {
             } else {
                 box.getChildren().add(genBtn);
             }
-            if (item.isProcessing())
+            if (item.isImageProcessing())
                 box.getChildren().add(spinner);
             setGraphic(box);
         }
@@ -563,7 +658,7 @@ public class TertiaryController {
             } else {
                 box.getChildren().add(genBtn);
             }
-            if (item.isProcessing())
+            if (item.isAudioProcessing())
                 box.getChildren().add(spinner);
             setGraphic(box);
         }
@@ -640,6 +735,7 @@ public class TertiaryController {
                 tf.focusedProperty().addListener((obs, o, focused) -> {
                     if (!focused && idx < item.getArabicParts().size()) {
                         item.getArabicParts().set(idx, tf.getText());
+                        markDirty();
                         if (currentPage != null) {
                             syncEntryToMap(currentPage, item.getIndex(), item);
                             saveJsonToFile();
@@ -656,7 +752,7 @@ public class TertiaryController {
             bottomRow.setAlignment(Pos.CENTER_LEFT);
             box.getChildren().add(bottomRow);
 
-            if (item.isProcessing())
+            if (item.isPartsProcessing())
                 box.getChildren().add(spin);
             setGraphic(box);
         }
@@ -697,6 +793,7 @@ public class TertiaryController {
                     try {
                         File dest = copyMedia(files.get(0), subDir);
                         onDrop.handle(entry, dest.getAbsolutePath());
+                        markDirty();
                         syncEntryToMap(currentPage, entry.getIndex(), entry);
                         saveJsonToFile();
                         wordsTable.refresh();
@@ -759,6 +856,16 @@ public class TertiaryController {
 
     public static class TertiaryWordEntry {
         private final int index;
+
+        // Add inside TertiaryWordEntry class:
+        public void setArabic(String v) {
+            arabic.set(v);
+        }
+
+        public void setBangla(String v) {
+            bangla.set(v);
+        }
+
         private final StringProperty arabic = new SimpleStringProperty();
         private final StringProperty bangla = new SimpleStringProperty();
         private final StringProperty imagePath = new SimpleStringProperty();
@@ -766,7 +873,9 @@ public class TertiaryController {
         private final ObservableList<String> arabicParts = FXCollections.observableArrayList();
         private final BooleanProperty tertiaryChecked = new SimpleBooleanProperty();
         private final BooleanProperty selected = new SimpleBooleanProperty();
-        private final BooleanProperty processing = new SimpleBooleanProperty();
+        private final BooleanProperty imageProcessing = new SimpleBooleanProperty();
+        private final BooleanProperty audioProcessing = new SimpleBooleanProperty();
+        private final BooleanProperty partsProcessing = new SimpleBooleanProperty();
 
         TertiaryWordEntry(int index, String arabic, String bangla,
                 String imagePath, String audioPath,
@@ -813,8 +922,28 @@ public class TertiaryController {
             return selected.get();
         }
 
-        public boolean isProcessing() {
-            return processing.get();
+        public boolean isImageProcessing() {
+            return imageProcessing.get();
+        }
+
+        public boolean isAudioProcessing() {
+            return audioProcessing.get();
+        }
+
+        public boolean isPartsProcessing() {
+            return partsProcessing.get();
+        }
+
+        public void setImageProcessing(boolean v) {
+            imageProcessing.set(v);
+        }
+
+        public void setAudioProcessing(boolean v) {
+            audioProcessing.set(v);
+        }
+
+        public void setPartsProcessing(boolean v) {
+            partsProcessing.set(v);
         }
 
         public StringProperty arabicProperty() {
@@ -849,8 +978,206 @@ public class TertiaryController {
             selected.set(v);
         }
 
-        public void setProcessing(boolean v) {
-            processing.set(v);
+    }
+
+    // =========================================================================
+    // Verify cell — button that calls Gemini and shows a confirmation dialog
+    // =========================================================================
+    private class VerifyCell extends TableCell<TertiaryWordEntry, TertiaryWordEntry> {
+        private final Button verifyBtn = new Button("🔍 Check");
+        private final Label spinner = new Label("⏳");
+        private final VBox box = new VBox(4, verifyBtn);
+
+        VerifyCell() {
+            box.setAlignment(Pos.CENTER);
+            verifyBtn.setStyle("-fx-font-size: 10;");
+
+            verifyBtn.setOnAction(e -> {
+                TertiaryWordEntry item = getItem();
+                if (item == null || currentPage == null)
+                    return;
+
+                GeminiService svc = getGeminiService();
+                if (svc == null) {
+                    showAlert(Alert.AlertType.ERROR, "No API Key", "Set your Gemini API key first.");
+                    return;
+                }
+
+                // Show spinner while waiting
+                box.getChildren().setAll(spinner);
+                verifyBtn.setDisable(true);
+
+                Task<GeminiService.VerifyResult> task = new Task<>() {
+                    @Override
+                    protected GeminiService.VerifyResult call() throws Exception {
+                        return svc.verifyWordPair(
+                                new File(currentPage.getFilePath()),
+                                item.getArabic(),
+                                item.getBangla());
+                    }
+                };
+
+                task.setOnSucceeded(ev -> {
+                    GeminiService.VerifyResult result = task.getValue();
+                    box.getChildren().setAll(verifyBtn);
+                    verifyBtn.setDisable(false);
+                    Platform.runLater(() -> showVerifyDialog(item, result));
+                });
+
+                task.setOnFailed(ev -> {
+                    box.getChildren().setAll(verifyBtn);
+                    verifyBtn.setDisable(false);
+                    String msg = task.getException() != null
+                            ? task.getException().getMessage()
+                            : "Unknown error";
+                    Platform.runLater(() -> showAlert(Alert.AlertType.ERROR, "Verify Failed", msg));
+                });
+
+                Thread t = new Thread(task);
+                t.setDaemon(true);
+                t.start();
+            });
+        }
+
+        private void showVerifyDialog(TertiaryWordEntry item, GeminiService.VerifyResult result) {
+            // Build a clear dialog showing what Gemini found
+            boolean changed = !result.correctedArabic().equals(item.getArabic())
+                    || !result.correctedBangla().equals(item.getBangla());
+
+            Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
+            dialog.setTitle("Gemini Verification");
+            dialog.setHeaderText(result.matches()
+                    ? "✅ Pair confirmed on page"
+                    : "⚠ Pair not fully confirmed");
+
+            // Detail grid
+            javafx.scene.layout.GridPane grid = new javafx.scene.layout.GridPane();
+            grid.setHgap(12);
+            grid.setVgap(8);
+            grid.setPadding(new Insets(10));
+
+            grid.add(bold("Field"), 0, 0);
+            grid.add(bold("Your Data"), 1, 0);
+            grid.add(bold("Gemini's Version"), 2, 0);
+
+            grid.add(new Label("Arabic"), 0, 1);
+            grid.add(highlighted(item.getArabic()), 1, 1);
+            grid.add(highlighted(result.correctedArabic(), changed
+                    && !result.correctedArabic().equals(item.getArabic())), 2, 1);
+
+            grid.add(new Label("Bangla"), 0, 2);
+            grid.add(highlighted(item.getBangla()), 1, 2);
+            grid.add(highlighted(result.correctedBangla(), changed
+                    && !result.correctedBangla().equals(item.getBangla())), 2, 2);
+
+            grid.add(new Label("Note"), 0, 3);
+            Label noteLabel = new Label(result.note());
+            noteLabel.setWrapText(true);
+            noteLabel.setMaxWidth(340);
+            grid.add(noteLabel, 1, 3, 2, 1);
+
+            dialog.getDialogPane().setContent(grid);
+            dialog.getDialogPane().setPrefWidth(520);
+
+            // Buttons
+            ButtonType btnSave = new ButtonType("💾 Save Gemini Version", ButtonBar.ButtonData.YES);
+            ButtonType btnKeep = new ButtonType("Keep My Version", ButtonBar.ButtonData.NO);
+            ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            if (changed) {
+                dialog.getButtonTypes().setAll(btnSave, btnKeep, btnCancel);
+            } else {
+                // Nothing changed — just show OK
+                dialog.getButtonTypes().setAll(ButtonType.OK);
+            }
+
+            dialog.showAndWait().ifPresent(btn -> {
+                if (btn == btnSave) {
+                    item.setArabic(result.correctedArabic());
+                    item.setBangla(result.correctedBangla());
+                    syncEntryToMap(currentPage, item.getIndex(), item);
+                    saveJsonToFile();
+                    markDirty();
+                    wordsTable.refresh();
+                }
+            });
+        }
+
+        // ── Helpers ───────────────────────────────────────────────────────────────
+        private Label bold(String text) {
+            Label l = new Label(text);
+            l.setStyle("-fx-font-weight: bold;");
+            return l;
+        }
+
+        private Label highlighted(String text) {
+            return highlighted(text, false);
+        }
+
+        private Label highlighted(String text, boolean warn) {
+            Label l = new Label(text);
+            if (warn)
+                l.setStyle("-fx-text-fill: #e67e22; -fx-font-weight: bold;");
+            return l;
+        }
+
+        private void showAlert(Alert.AlertType type, String title, String content) {
+            Alert a = new Alert(type);
+            a.setTitle(title);
+            a.setHeaderText(null);
+            a.setContentText(content);
+            a.showAndWait();
+        }
+
+        @Override
+        protected void updateItem(TertiaryWordEntry item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setGraphic(null);
+                return;
+            }
+            setGraphic(box);
+        }
+    }
+
+    // =========================================================================
+    // Parts check cell — auto concat check, no user interaction needed
+    // =========================================================================
+    private class PartsCheckCell extends TableCell<TertiaryWordEntry, TertiaryWordEntry> {
+        private final Label icon = new Label();
+
+        PartsCheckCell() {
+            icon.setStyle("-fx-font-size: 16;");
+            setAlignment(Pos.CENTER);
+        }
+
+        @Override
+        protected void updateItem(TertiaryWordEntry item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setGraphic(null);
+                return;
+            }
+
+            List<String> parts = item.getArabicParts();
+            if (parts == null || parts.isEmpty()) {
+                icon.setText("—");
+                icon.setStyle("-fx-font-size: 13; -fx-text-fill: #aaa;");
+            } else {
+                String joined = String.join("", parts);
+                if (joined.equals(item.getArabic())) {
+                    icon.setText("✅");
+                    icon.setStyle("-fx-font-size: 16;");
+                    icon.setTooltip(new Tooltip("Parts correctly reconstruct the word:\n" + joined));
+                } else {
+                    icon.setText("❌");
+                    icon.setStyle("-fx-font-size: 16;");
+                    icon.setTooltip(new Tooltip(
+                            "Mismatch!\nExpected : " + item.getArabic()
+                                    + "\nGot      : " + joined));
+                }
+            }
+            setGraphic(icon);
         }
     }
 }

@@ -41,6 +41,7 @@ public class SecondaryController {
         App.setRoot("tertiary");
     }
 
+    private GeminiService geminiService = null;
     @FXML
     private TabPane pdfTabPane;
     @FXML
@@ -260,24 +261,66 @@ public class SecondaryController {
     }
 
     // =========================================================================
-    // ★ REPLACE THIS with your real implementation later ★
+    // ★ REPLACE THIS with your real implementation later ★ Done!
     // =========================================================================
     private FetchResult fetchWordsFromPdf(File pdfFile) throws Exception {
-        Thread.sleep(1000); // simulate delay
-        List<Map<String, String>> words = new ArrayList<>();
-        words.add(mapOf("مرحبا", "হ্যালো"));
-        words.add(mapOf("كتاب", "বই"));
-        words.add(mapOf("قلم", "কলম"));
-        return new FetchResult(words, words.size());
+        GeminiService svc = getOrInitGeminiService();
+        if (svc == null)
+            throw new RuntimeException("No Gemini API key provided.");
+        GeminiService.WordsResult result = svc.extractWordsFromPdf(pdfFile);
+        return new FetchResult(new ArrayList<>(result.words()), result.totalWords());
     }
 
-    private static Map<String, String> mapOf(String arabic, String bangla) {
-        Map<String, String> m = new LinkedHashMap<>();
-        m.put("arabic", arabic);
-        m.put("bangla", bangla);
-        m.put("checked", "false");
-        return m;
+    // ── Lazy init with key prompt
+    // ─────────────────────────────────────────────────
+    private GeminiService getOrInitGeminiService() {
+        if (geminiService != null)
+            return geminiService;
+
+        String key = ApiKeyManager.load();
+
+        if (key.isEmpty()) {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Gemini API Key Required");
+            dialog.setHeaderText("Enter your Gemini API key to enable word extraction.");
+            dialog.setContentText("API Key:");
+            // Style the dialog
+            dialog.getDialogPane().setPrefWidth(460);
+            Optional<String> result = dialog.showAndWait();
+            key = result.orElse("").trim();
+            if (key.isEmpty())
+                return null;
+            ApiKeyManager.save(key);
+        }
+
+        geminiService = new GeminiService(key);
+        return geminiService;
     }
+
+    // ── Add a menu/button to change the key ──────────────────────────────────────
+    @FXML
+    public void handleChangeApiKey() {
+        String current = ApiKeyManager.load();
+        TextInputDialog dialog = new TextInputDialog(current);
+        dialog.setTitle("Change Gemini API Key");
+        dialog.setHeaderText("Update your Gemini API key.");
+        dialog.setContentText("API Key:");
+        dialog.getDialogPane().setPrefWidth(460);
+        dialog.showAndWait().ifPresent(key -> {
+            if (!key.isBlank()) {
+                ApiKeyManager.save(key.trim());
+                geminiService = new GeminiService(key.trim()); // reinit with new key
+            }
+        });
+    }
+
+    // private static Map<String, String> mapOf(String arabic, String bangla) {
+    // Map<String, String> m = new LinkedHashMap<>();
+    // m.put("arabic", arabic);
+    // m.put("bangla", bangla);
+    // m.put("checked", "false");
+    // return m;
+    // }
 
     // =========================================================================
     // Custom ListCell

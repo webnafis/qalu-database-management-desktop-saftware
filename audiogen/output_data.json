@@ -19,8 +19,8 @@
     "bangla" : "কলম",
     "checked" : "true"
   } ],
-  "fullyChecked" : true,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : true
 }, {
   "pageNumber" : 2,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_2_1773005569021.pdf",
@@ -50,8 +50,8 @@
     "arabicParts" : "قلم",
     "tertiaryChecked" : "false"
   } ],
-  "fullyChecked" : true,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : true
 }, {
   "pageNumber" : 3,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_3_1773005569134.pdf",
@@ -69,8 +69,8 @@
     "bangla" : "কলম",
     "checked" : "false"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 4,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_4_1773005569383.pdf",
@@ -78,7 +78,11 @@
   "wordsinfo" : [ {
     "arabic" : "مرحبا",
     "bangla" : "হ্যালো",
-    "checked" : "true"
+    "checked" : "true",
+    "imagePath" : "",
+    "audioPath" : "",
+    "tertiaryChecked" : "false",
+    "arabicParts" : "[\"مرحبا\"]"
   }, {
     "arabic" : "كتاب",
     "bangla" : "বই",
@@ -88,8 +92,8 @@
     "bangla" : "কলম",
     "checked" : "true"
   } ],
-  "fullyChecked" : true,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : true
 }, {
   "pageNumber" : 5,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_5_1773005569516.pdf",
@@ -107,8 +111,8 @@
     "bangla" : "কলম",
     "checked" : "true"
   } ],
-  "fullyChecked" : true,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : true
 }, {
   "pageNumber" : 6,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_6_1773005569616.pdf",
@@ -138,8 +142,8 @@
     "arabicParts" : "قلم",
     "tertiaryChecked" : "false"
   } ],
-  "fullyChecked" : true,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : true
 }, {
   "pageNumber" : 7,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_7_1773005569693.pdf",
@@ -147,7 +151,11 @@
   "wordsinfo" : [ {
     "arabic" : "مرحبا",
     "bangla" : "হ্যালো",
-    "checked" : "false"
+    "checked" : "false",
+    "imagePath" : "",
+    "audioPath" : "",
+    "tertiaryChecked" : "false",
+    "arabicParts" : "[\"مرحبا\"]"
   }, {
     "arabic" : "كتاب",
     "bangla" : "বই",
@@ -157,8 +165,8 @@
     "bangla" : "কলম",
     "checked" : "false"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 8,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_8_1773005569707.pdf",
@@ -166,7 +174,11 @@
   "wordsinfo" : [ {
     "arabic" : "مرحبا",
     "bangla" : "হ্যালো",
-    "checked" : "false"
+    "checked" : "false",
+    "imagePath" : "",
+    "audioPath" : "",
+    "tertiaryChecked" : "false",
+    "arabicParts" : "[\"مرحبا\"]"
   }, {
     "arabic" : "كتاب",
     "bangla" : "বই",
@@ -176,39 +188,91 @@
     "bangla" : "কলম",
     "checked" : "false"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 9,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_9_1773005569722.pdf",
-  "totalWords" : 3,
+  "totalWords" : 16,
   "wordsinfo" : [ {
-    "arabic" : "مرحبا",
-    "bangla" : "হ্যালো",
+    "arabic" : "شُعَيبٌ",
+    "bangla" : "শুয়াইব (আ)",
     "checked" : "false",
     "imagePath" : "",
     "audioPath" : "",
-    "arabicParts" : "رحبا",
-    "tertiaryChecked" : "false"
+    "tertiaryChecked" : "false",
+    "arabicParts" : "[\"شُعَ\",\"يبٌ\"]"
   }, {
-    "arabic" : "كتاب",
-    "bangla" : "বই",
-    "checked" : "false",
-    "imagePath" : "",
-    "audioPath" : "",
-    "arabicParts" : "كتاب",
-    "tertiaryChecked" : "false"
+    "arabic" : "صَالِحٌ",
+    "bangla" : "সালিহ (আ)",
+    "checked" : "false"
   }, {
-    "arabic" : "قلم",
-    "bangla" : "কলম",
+    "arabic" : "عُزَيرٌ",
+    "bangla" : "উজাইর (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "عَادٌ",
+    "bangla" : "হুদ (আ) এর সম্প্রদায়",
+    "checked" : "false"
+  }, {
+    "arabic" : "عِيسَى",
+    "bangla" : "ঈসা (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "لُوطٌ",
+    "bangla" : "লুত (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "هَارُونُ",
+    "bangla" : "হারুন (আ); মুসা (আ) এর ভাই",
     "checked" : "false",
     "imagePath" : "",
     "audioPath" : "",
-    "arabicParts" : "قلم",
-    "tertiaryChecked" : "false"
+    "tertiaryChecked" : "false",
+    "arabicParts" : "[\"هَا\",\"رُونُ\"]"
+  }, {
+    "arabic" : "مُوسَى",
+    "bangla" : "মুসা (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "هُودٌ",
+    "bangla" : "হুদ (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "يُوسُفُ",
+    "bangla" : "ইউসুফ (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "يُونُسُ",
+    "bangla" : "ইউনুস (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "ذُو النُّونِ",
+    "bangla" : "যুন-নুন; ইউনুস (আ)",
+    "checked" : "false"
+  }, {
+    "arabic" : "يَعْقُوبُ",
+    "bangla" : "ইয়াকুব (আ)",
+    "checked" : "false",
+    "imagePath" : "",
+    "audioPath" : "",
+    "tertiaryChecked" : "false",
+    "arabicParts" : "[\"يَعْ\",\"قُو\",\"بُ\"]"
+  }, {
+    "arabic" : "التَّوْرَاةُ",
+    "bangla" : "তাওরাত: মুসা আলাইহিস সালামের প্রতি অবতীর্ণ কিতাব",
+    "checked" : "false"
+  }, {
+    "arabic" : "الزَّبُورُ",
+    "bangla" : "যাবুর; দাউদ (আ) এর উপর অবতীর্ণ কিতাব",
+    "checked" : "false"
+  }, {
+    "arabic" : "الإِنْجِيلُ",
+    "bangla" : "ইঞ্জিল, ঈসার (আ) উপর অবতীর্ণ কিতাব",
+    "checked" : "false"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 10,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_10_1773005569760.pdf",
@@ -220,8 +284,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 11,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_11_1773005569782.pdf",
@@ -233,8 +297,8 @@
     "arabic" : "كتاب",
     "bangla" : "বই"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 12,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_12_1773005569801.pdf",
@@ -246,8 +310,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 13,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_13_1773005569821.pdf",
@@ -259,8 +323,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 14,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_14_1773005569836.pdf",
@@ -272,8 +336,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 15,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_15_1773005569854.pdf",
@@ -285,8 +349,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 16,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_16_1773005569876.pdf",
@@ -298,8 +362,8 @@
     "arabic" : "كتاب",
     "bangla" : "বই"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 17,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_17_1773005569902.pdf",
@@ -311,8 +375,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 18,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_18_1773005569916.pdf",
@@ -324,8 +388,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 19,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_19_1773005569960.pdf",
@@ -337,8 +401,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 20,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_20_1773005569978.pdf",
@@ -350,8 +414,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 21,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_21_1773005569996.pdf",
@@ -363,8 +427,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 22,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_22_1773005570014.pdf",
@@ -376,8 +440,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 23,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_23_1773005570032.pdf",
@@ -389,8 +453,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 24,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_24_1773005570045.pdf",
@@ -402,8 +466,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 25,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_25_1773005570059.pdf",
@@ -415,8 +479,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 26,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_26_1773005570074.pdf",
@@ -428,8 +492,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 27,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_27_1773005570095.pdf",
@@ -441,8 +505,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 28,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_28_1773005570112.pdf",
@@ -454,8 +518,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 29,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_29_1773005570130.pdf",
@@ -467,8 +531,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 30,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_30_1773005570145.pdf",
@@ -480,8 +544,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 31,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_31_1773005570158.pdf",
@@ -493,8 +557,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 32,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_32_1773005570174.pdf",
@@ -506,8 +570,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 33,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_33_1773005570188.pdf",
@@ -519,8 +583,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 34,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_34_1773005570205.pdf",
@@ -532,8 +596,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 35,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_35_1773005570221.pdf",
@@ -545,8 +609,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 36,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_36_1773005570235.pdf",
@@ -558,8 +622,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 37,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_37_1773005570246.pdf",
@@ -571,8 +635,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 38,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_38_1773005570259.pdf",
@@ -592,8 +656,8 @@
     "arabicParts" : "",
     "tertiaryChecked" : "true"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : true
+  "tertiaryFullyChecked" : true,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 39,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_39_1773005570277.pdf",
@@ -613,8 +677,8 @@
     "arabicParts" : "",
     "tertiaryChecked" : "true"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : true
+  "tertiaryFullyChecked" : true,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 40,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_40_1773005570295.pdf",
@@ -626,8 +690,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 41,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_41_1773005570311.pdf",
@@ -639,8 +703,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 42,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_42_1773005570327.pdf",
@@ -652,8 +716,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 43,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_43_1773005570342.pdf",
@@ -665,8 +729,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 44,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_44_1773005570359.pdf",
@@ -678,8 +742,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 45,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_45_1773005570374.pdf",
@@ -691,8 +755,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 46,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_46_1773005570387.pdf",
@@ -704,8 +768,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 47,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_47_1773005570402.pdf",
@@ -717,8 +781,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 48,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_48_1773005570417.pdf",
@@ -730,8 +794,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 49,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_49_1773005570436.pdf",
@@ -743,8 +807,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 50,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_50_1773005570453.pdf",
@@ -756,8 +820,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 51,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_51_1773005570467.pdf",
@@ -769,8 +833,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 52,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_52_1773005570483.pdf",
@@ -782,8 +846,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 53,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_53_1773005570500.pdf",
@@ -795,8 +859,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 54,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_54_1773005570517.pdf",
@@ -808,8 +872,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 55,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_55_1773005570534.pdf",
@@ -821,8 +885,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 56,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_56_1773005570550.pdf",
@@ -834,8 +898,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 57,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_57_1773005570565.pdf",
@@ -847,8 +911,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 58,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_58_1773005570577.pdf",
@@ -860,8 +924,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 59,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_59_1773005570589.pdf",
@@ -873,8 +937,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 60,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_60_1773005570600.pdf",
@@ -886,8 +950,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 61,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_61_1773005570612.pdf",
@@ -899,8 +963,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 62,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_62_1773005570623.pdf",
@@ -912,8 +976,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 63,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_63_1773005570637.pdf",
@@ -925,8 +989,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 64,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_64_1773005570651.pdf",
@@ -938,8 +1002,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 65,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_65_1773005570666.pdf",
@@ -951,8 +1015,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 66,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_66_1773005570681.pdf",
@@ -964,8 +1028,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 67,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_67_1773005570697.pdf",
@@ -977,8 +1041,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 68,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_68_1773005570711.pdf",
@@ -990,8 +1054,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 69,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_69_1773005570724.pdf",
@@ -1003,8 +1067,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 70,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_70_1773005570737.pdf",
@@ -1016,8 +1080,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 71,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_71_1773005570751.pdf",
@@ -1029,8 +1093,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 72,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_72_1773005570765.pdf",
@@ -1042,8 +1106,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 73,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_73_1773005570782.pdf",
@@ -1055,8 +1119,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 74,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_74_1773005570797.pdf",
@@ -1068,8 +1132,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 75,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_75_1773005570814.pdf",
@@ -1081,8 +1145,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 76,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_76_1773005570830.pdf",
@@ -1094,8 +1158,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 77,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_77_1773005570846.pdf",
@@ -1107,8 +1171,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 78,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_78_1773005570862.pdf",
@@ -1120,8 +1184,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 79,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_79_1773005570876.pdf",
@@ -1133,8 +1197,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 80,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_80_1773005570893.pdf",
@@ -1146,8 +1210,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 81,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_81_1773005570916.pdf",
@@ -1159,8 +1223,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 82,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_82_1773005570930.pdf",
@@ -1172,8 +1236,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 83,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_83_1773005570946.pdf",
@@ -1185,8 +1249,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 84,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_84_1773005570961.pdf",
@@ -1198,8 +1262,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 85,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_85_1773005570975.pdf",
@@ -1211,8 +1275,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 86,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_86_1773005570989.pdf",
@@ -1224,8 +1288,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 87,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_87_1773005571006.pdf",
@@ -1237,8 +1301,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 88,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_88_1773005571021.pdf",
@@ -1250,8 +1314,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 89,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_89_1773005571035.pdf",
@@ -1263,8 +1327,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 90,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_90_1773005571047.pdf",
@@ -1276,8 +1340,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 91,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_91_1773005571061.pdf",
@@ -1289,8 +1353,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 92,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_92_1773005571076.pdf",
@@ -1302,8 +1366,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 93,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_93_1773005571090.pdf",
@@ -1315,8 +1379,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 94,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_94_1773005571104.pdf",
@@ -1328,8 +1392,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 95,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_95_1773005571115.pdf",
@@ -1341,8 +1405,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 96,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_96_1773005571126.pdf",
@@ -1354,8 +1418,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 97,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_97_1773005571141.pdf",
@@ -1367,8 +1431,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 98,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_98_1773005571155.pdf",
@@ -1380,8 +1444,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 99,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_99_1773005571168.pdf",
@@ -1393,8 +1457,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 100,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_100_1773005571180.pdf",
@@ -1406,8 +1470,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 101,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_101_1773005571190.pdf",
@@ -1419,8 +1483,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 102,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_102_1773005571202.pdf",
@@ -1432,8 +1496,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 103,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_103_1773005571217.pdf",
@@ -1445,8 +1509,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 104,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_104_1773005571233.pdf",
@@ -1458,8 +1522,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 105,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_105_1773005571243.pdf",
@@ -1471,8 +1535,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 106,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_106_1773005571260.pdf",
@@ -1484,8 +1548,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 107,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_107_1773005571278.pdf",
@@ -1497,8 +1561,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 108,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_108_1773005571299.pdf",
@@ -1510,8 +1574,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 109,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_109_1773005571318.pdf",
@@ -1523,8 +1587,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 110,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_110_1773005571337.pdf",
@@ -1536,8 +1600,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 111,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_111_1773005571356.pdf",
@@ -1549,8 +1613,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 112,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_112_1773005571380.pdf",
@@ -1562,8 +1626,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 113,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_113_1773005571399.pdf",
@@ -1575,8 +1639,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 114,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_114_1773005571421.pdf",
@@ -1588,8 +1652,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 115,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_115_1773005571445.pdf",
@@ -1601,8 +1665,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 116,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_116_1773005571468.pdf",
@@ -1614,8 +1678,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 117,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_117_1773005571491.pdf",
@@ -1627,8 +1691,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 118,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_118_1773005571510.pdf",
@@ -1640,8 +1704,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 119,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_119_1773005571531.pdf",
@@ -1653,8 +1717,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 120,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_120_1773005571553.pdf",
@@ -1666,8 +1730,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 121,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_121_1773005571573.pdf",
@@ -1679,8 +1743,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 122,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_122_1773005571593.pdf",
@@ -1692,8 +1756,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 123,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_123_1773005571612.pdf",
@@ -1705,8 +1769,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 124,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_124_1773005571649.pdf",
@@ -1718,8 +1782,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 125,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_125_1773005571668.pdf",
@@ -1731,8 +1795,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 126,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_126_1773005571685.pdf",
@@ -1744,8 +1808,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 127,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_127_1773005571704.pdf",
@@ -1757,8 +1821,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 128,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_128_1773005571719.pdf",
@@ -1770,8 +1834,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 129,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_129_1773005571736.pdf",
@@ -1783,8 +1847,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 130,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_130_1773005571752.pdf",
@@ -1796,8 +1860,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 131,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_131_1773005571766.pdf",
@@ -1809,8 +1873,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 132,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_132_1773005571781.pdf",
@@ -1822,8 +1886,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 133,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_133_1773005571807.pdf",
@@ -1835,8 +1899,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 134,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_134_1773005571824.pdf",
@@ -1848,8 +1912,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 135,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_135_1773005571843.pdf",
@@ -1861,8 +1925,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 136,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_136_1773005571860.pdf",
@@ -1874,8 +1938,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 137,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_137_1773005571878.pdf",
@@ -1887,8 +1951,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 138,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_138_1773005571892.pdf",
@@ -1900,8 +1964,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 139,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_139_1773005571907.pdf",
@@ -1913,8 +1977,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 140,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_140_1773005571922.pdf",
@@ -1926,8 +1990,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 141,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_141_1773005571937.pdf",
@@ -1939,8 +2003,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 142,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_142_1773005571949.pdf",
@@ -1952,8 +2016,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 143,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_143_1773005571972.pdf",
@@ -1965,8 +2029,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 144,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_144_1773005571986.pdf",
@@ -1978,8 +2042,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 145,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_145_1773005572004.pdf",
@@ -1991,8 +2055,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 146,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_146_1773005572019.pdf",
@@ -2004,8 +2068,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 147,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_147_1773005572032.pdf",
@@ -2017,8 +2081,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 148,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_148_1773005572043.pdf",
@@ -2030,8 +2094,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 149,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_149_1773005572056.pdf",
@@ -2043,8 +2107,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 150,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_150_1773005572068.pdf",
@@ -2056,8 +2120,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 151,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_151_1773005572081.pdf",
@@ -2069,8 +2133,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 152,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_152_1773005572094.pdf",
@@ -2082,8 +2146,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 153,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_153_1773005572109.pdf",
@@ -2095,8 +2159,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 154,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_154_1773005572121.pdf",
@@ -2108,8 +2172,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 155,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_155_1773005572133.pdf",
@@ -2121,8 +2185,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 156,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_156_1773005572148.pdf",
@@ -2134,8 +2198,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 157,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_157_1773005572161.pdf",
@@ -2147,8 +2211,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 158,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_158_1773005572174.pdf",
@@ -2160,8 +2224,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 159,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_159_1773005572188.pdf",
@@ -2173,8 +2237,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 160,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_160_1773005572202.pdf",
@@ -2194,8 +2258,8 @@
     "tertiaryChecked" : "true",
     "arabicParts" : "[]"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : true
+  "tertiaryFullyChecked" : true,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 161,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_161_1773005572221.pdf",
@@ -2215,8 +2279,8 @@
     "tertiaryChecked" : "true",
     "arabicParts" : "[]"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : true
+  "tertiaryFullyChecked" : true,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 162,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_162_1773005572234.pdf",
@@ -2228,8 +2292,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 163,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_163_1773005572248.pdf",
@@ -2241,8 +2305,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 164,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_164_1773005572260.pdf",
@@ -2254,8 +2318,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 165,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_165_1773005572277.pdf",
@@ -2267,8 +2331,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 166,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_166_1773005572294.pdf",
@@ -2280,8 +2344,8 @@
     "bangla" : "বই",
     "arabic" : "كتاب"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 167,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_167_1773005572313.pdf",
@@ -2297,8 +2361,8 @@
     "arabicParts" : "\nب",
     "tertiaryChecked" : "false"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 }, {
   "pageNumber" : 168,
   "filePath" : "c:\\Users\\Md Nafis Shahriar\\Desktop\\unlimited text to audio generator\\audiogen\\output_pages\\page_168_1773005572336.pdf",
@@ -2318,6 +2382,6 @@
     "arabicParts" : "كب",
     "tertiaryChecked" : "false"
   } ],
-  "fullyChecked" : false,
-  "tertiaryFullyChecked" : false
+  "tertiaryFullyChecked" : false,
+  "fullyChecked" : false
 } ]
