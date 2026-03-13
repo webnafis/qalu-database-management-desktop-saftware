@@ -1,0 +1,11 @@
+{
+  "gemini-2.5-flash-preview-tts" : {
+    "requestsToday" : 1,
+    "dayKey" : "2026-03-13",
+    "requestsThisMin" : 1,
+    "tokensThisMin" : 36,
+    "minuteWindowMs" : 1773388323564,
+    "tokensToday" : 36,
+    "totalTokensEver" : 36
+  }
+}

@@ -50,7 +50,10 @@ public class TertiaryController {
 
     private final ObservableList<PageData> allPages = FXCollections.observableArrayList();
     private final ObservableList<TertiaryWordEntry> currentEntries = FXCollections.observableArrayList();
-
+    // ── Fields
+    // ────────────────────────────────────────────────────────────────────
+    private final LahajatiService lahajatiService = new LahajatiService();
+    private ApiKeyManager.AudioProvider audioProvider;
     private PageData currentPage = null;
 
     private enum TaskType {
@@ -68,6 +71,13 @@ public class TertiaryController {
         isDirty = false;
     }
 
+    // near: private final LahajatiService lahajatiService = new LahajatiService();
+    @FXML
+    private HBox toolbarHBox;
+
+    // ── Add field ────────────────────────────────────────────────────────────────
+    @FXML
+    private ComboBox<GeminiService.TextModel> modelComboBox;
     // =========================================================================
     // Init
     // =========================================================================
@@ -84,6 +94,35 @@ public class TertiaryController {
         setupPageList();
         setupWordsTable();
         loadData();
+
+        // ── Audio provider picker ──────────────────────────────────────────────
+        audioProvider = new ApiKeyManager().loadAudioProvider();
+
+        ComboBox<ApiKeyManager.AudioProvider> providerBox = new ComboBox<>(FXCollections.observableArrayList(
+                ApiKeyManager.AudioProvider.values()));
+        providerBox.setValue(audioProvider);
+        providerBox.setConverter(new javafx.util.StringConverter<>() {
+            @Override
+            public String toString(ApiKeyManager.AudioProvider p) {
+                return p == ApiKeyManager.AudioProvider.GEMINI ? "🤖 Gemini TTS" : "🌐 Lahajati";
+            }
+
+            @Override
+            public ApiKeyManager.AudioProvider fromString(String s) {
+                return null;
+            }
+        });
+        providerBox.setOnAction(e -> {
+            audioProvider = providerBox.getValue();
+            new ApiKeyManager().saveAudioProvider(audioProvider);
+            AppLogger.info("Audio provider switched to: " + audioProvider);
+        });
+        providerBox.setTooltip(new Tooltip("Choose audio generation provider"));
+        toolbarHBox.getChildren().add(providerBox); // ← appends to toolbar
+
+        // ── Shutdown hook ──────────────────────────────────────────────────────
+        Runtime.getRuntime().addShutdownHook(
+                new Thread(() -> lahajatiService.quitDriver()));
     }
 
     // =========================================================================
@@ -365,6 +404,43 @@ public class TertiaryController {
         return sel.isEmpty() ? new ArrayList<>(currentEntries) : sel;
     }
 
+    // ── New bulk parts handler
+    // ────────────────────────────────────────────────────
+    @FXML
+    public void handleGenerateAllParts() {
+        if (currentPage == null || currentEntries.isEmpty())
+            return;
+
+        // Ask for confirmation since it overwrites existing parts
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Generate All Arabic Parts");
+        confirm.setHeaderText("Generate parts for all " + currentEntries.size() + " words?");
+        confirm.setContentText("This will overwrite existing parts for this page sequentially.");
+        ButtonType btnAll = new ButtonType("Generate All", ButtonBar.ButtonData.YES);
+        ButtonType btnSel = new ButtonType("Selected Only", ButtonBar.ButtonData.NO);
+        ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirm.getButtonTypes().setAll(btnAll, btnSel, btnCancel);
+
+        confirm.showAndWait().ifPresent(btn -> {
+            if (btn == btnCancel)
+                return;
+            List<TertiaryWordEntry> targets = btn == btnSel ? getTargets()
+                    : new ArrayList<>(currentEntries);
+            if (!targets.isEmpty()) {
+                AppLogger.info("Starting Arabic parts generation for "
+                        + targets.size() + " words on page " + currentPage.getPageNumber());
+                runSequential(targets, 0, TaskType.ARABIC_PARTS);
+            }
+        });
+    }
+
+    // ── Open log/stats window
+    // ─────────────────────────────────────────────────────
+    @FXML
+    public void handleOpenLogs() {
+        LogAndStatsPane.openWindow();
+    }
+
     // =========================================================================
     // Sequential task runner
     // =========================================================================
@@ -473,9 +549,16 @@ public class TertiaryController {
         return ""; // return absolute path to saved image
     }
 
-    private String generateAudio(String arabic) throws Exception {
-        Thread.sleep(500);
-        return ""; // return absolute path to saved audio
+    private String generateAudio(String arabicText) throws Exception {
+        File audioDir = new File("output_pages/audio");
+
+        if (audioProvider == ApiKeyManager.AudioProvider.LAHAJATI) {
+            AppLogger.info("Using Lahajati for: " + arabicText);
+            return lahajatiService.generateAudio(arabicText, audioDir);
+        } else {
+            AppLogger.info("Using Gemini TTS for: " + arabicText);
+            return getGeminiService().generateArabicAudio(arabicText, audioDir);
+        }
     }
 
     private String generateArabicParts(String arabic) throws Exception {
@@ -491,7 +574,9 @@ public class TertiaryController {
         String key = ApiKeyManager.load();
         if (key.isEmpty())
             return null;
-        return new GeminiService(key);
+        GeminiService svc = new GeminiService(key);
+        svc.setTextModel(ApiKeyManager.loadTextModel());
+        return svc;
     }
 
     // =========================================================================

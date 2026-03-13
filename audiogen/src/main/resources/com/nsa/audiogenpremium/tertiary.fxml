@@ -17,6 +17,9 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Button fx:id="saveBtn" text="💾 Save" onAction="#handleSave"
                 style="-fx-font-weight: bold;"/>
+                <Label text="Model:" style="-fx-font-size: 11; -fx-text-fill: #555;"/>
+<ComboBox fx:id="modelComboBox" style="-fx-font-size: 11;"/>
+<Button text="📊 Logs &amp; Stats" onAction="#handleOpenLogs"/>
     </HBox>
 
     <!-- Main split -->
@@ -41,17 +44,20 @@
                    style="-fx-font-size: 13; -fx-font-weight: bold;"/>
 
             <!-- Bulk toolbar (no Arabic Parts bulk) -->
-            <HBox spacing="6" alignment="CENTER_LEFT"
-                  style="-fx-padding: 4 6 4 6; -fx-background-color: #f0f0f0; -fx-background-radius: 5;">
-                <Button text="☑ Sel/Desel All"  onAction="#handleSelectAllWords" style="-fx-font-size: 11;"/>
-                <Separator orientation="VERTICAL"/>
-                <Label text="Generate:" style="-fx-font-size: 10; -fx-text-fill:#555;"/>
-                <Button text="🖼 Images"         onAction="#handleGenerateImages"  style="-fx-font-size: 11;"/>
-                <Button text="🔊 Audio"          onAction="#handleGenerateAudio"   style="-fx-font-size: 11;"/>
-                <Separator orientation="VERTICAL"/>
-                <Button text="✅ Check All"      onAction="#handleCheckAllWords"
-                        style="-fx-font-size: 11; -fx-text-fill: #2a7a2a; -fx-font-weight: bold;"/>
-            </HBox>
+<HBox fx:id="toolbarHBox" spacing="6" alignment="CENTER_LEFT"
+      style="-fx-padding: 4 6 4 6; -fx-background-color: #f0f0f0; -fx-background-radius: 5;">
+    <Button text="☑ Sel/Desel All"   onAction="#handleSelectAllWords"  style="-fx-font-size: 11;"/>
+    <Separator orientation="VERTICAL"/>
+    <Label text="Generate:" style="-fx-font-size: 10; -fx-text-fill:#555;"/>
+    <Button text="🖼 Images"          onAction="#handleGenerateImages"   style="-fx-font-size: 11;"/>
+    <Button text="🔊 Audio"           onAction="#handleGenerateAudio"    style="-fx-font-size: 11;"/>
+    <Button text="✂ Parts (All)"     onAction="#handleGenerateAllParts" style="-fx-font-size: 11; -fx-text-fill: #8e44ad; -fx-font-weight: bold;"/>
+    <Separator orientation="VERTICAL"/>
+    <Button text="✅ Check All"       onAction="#handleCheckAllWords"
+            style="-fx-font-size: 11; -fx-text-fill: #2a7a2a; -fx-font-weight: bold;"/>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Button text="📊 Logs &amp; Stats" onAction="#handleOpenLogs" style="-fx-font-size: 11;"/>
+</HBox>
 
             <TableView fx:id="wordsTable" VBox.vgrow="ALWAYS"
                        style="-fx-font-size: 12;"/>

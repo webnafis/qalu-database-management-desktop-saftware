@@ -41,6 +41,8 @@ public class SecondaryController {
         App.setRoot("tertiary");
     }
 
+    @FXML
+    private ComboBox<GeminiService.TextModel> modelComboBox;
     private GeminiService geminiService = null;
     @FXML
     private TabPane pdfTabPane;
@@ -48,6 +50,11 @@ public class SecondaryController {
     private ListView<PageData> jsonListView;
     @FXML
     private Button switchToPrimaryBtn; // ← needs fx:id in FXML
+
+    @FXML
+    public void handleOpenLogs() {
+        LogAndStatsPane.openWindow();
+    }
 
     private static final String JSON_PATH = "output_data.json";
     private final ObjectMapper mapper = new ObjectMapper();
@@ -82,6 +89,11 @@ public class SecondaryController {
                 });
         loadDataFromFile();
         jsonListView.setItems(masterList);
+
+        modelComboBox.getItems().addAll(GeminiService.TextModel.values());
+        modelComboBox.setValue(ApiKeyManager.loadTextModel());
+        modelComboBox.setOnAction(e -> ApiKeyManager.saveTextModel(modelComboBox.getValue()));
+
     }
 
     // =========================================================================
@@ -274,26 +286,24 @@ public class SecondaryController {
     // ── Lazy init with key prompt
     // ─────────────────────────────────────────────────
     private GeminiService getOrInitGeminiService() {
-        if (geminiService != null)
+        if (geminiService != null) {
+            geminiService.setTextModel(ApiKeyManager.loadTextModel());
             return geminiService;
-
+        }
         String key = ApiKeyManager.load();
-
         if (key.isEmpty()) {
             TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("Gemini API Key Required");
-            dialog.setHeaderText("Enter your Gemini API key to enable word extraction.");
+            dialog.setTitle("Gemini API Key");
+            dialog.setHeaderText("Enter your Gemini API key.");
             dialog.setContentText("API Key:");
-            // Style the dialog
             dialog.getDialogPane().setPrefWidth(460);
-            Optional<String> result = dialog.showAndWait();
-            key = result.orElse("").trim();
+            key = dialog.showAndWait().orElse("").trim();
             if (key.isEmpty())
                 return null;
             ApiKeyManager.save(key);
         }
-
         geminiService = new GeminiService(key);
+        geminiService.setTextModel(ApiKeyManager.loadTextModel());
         return geminiService;
     }
 
