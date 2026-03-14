@@ -1,4 +1,49 @@
 {
+  "gemini-2.5-pro" : {
+    "requestsToday" : 0,
+    "dayKey" : "2026-03-13",
+    "requestsThisMin" : 0,
+    "tokensThisMin" : 0,
+    "minuteWindowMs" : 0,
+    "tokensToday" : 0,
+    "totalTokensEver" : 0
+  },
+  "gemini-2.0-flash" : {
+    "requestsToday" : 0,
+    "dayKey" : "2026-03-13",
+    "requestsThisMin" : 0,
+    "tokensThisMin" : 0,
+    "minuteWindowMs" : 0,
+    "tokensToday" : 0,
+    "totalTokensEver" : 0
+  },
+  "gemini-2.5-flash-lite" : {
+    "requestsToday" : 0,
+    "dayKey" : "2026-03-13",
+    "requestsThisMin" : 0,
+    "tokensThisMin" : 0,
+    "minuteWindowMs" : 0,
+    "tokensToday" : 0,
+    "totalTokensEver" : 0
+  },
+  "gemini-2.5-flash" : {
+    "requestsToday" : 5,
+    "dayKey" : "2026-03-13",
+    "requestsThisMin" : 2,
+    "tokensThisMin" : 917,
+    "minuteWindowMs" : 1773462035690,
+    "tokensToday" : 3805,
+    "totalTokensEver" : 3805
+  },
+  "gemini-2.0-flash-8b" : {
+    "requestsToday" : 0,
+    "dayKey" : "2026-03-13",
+    "requestsThisMin" : 0,
+    "tokensThisMin" : 0,
+    "minuteWindowMs" : 0,
+    "tokensToday" : 0,
+    "totalTokensEver" : 0
+  },
   "gemini-2.5-flash-preview-tts" : {
     "requestsToday" : 1,
     "dayKey" : "2026-03-13",

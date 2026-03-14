@@ -75,6 +75,12 @@ public class TertiaryController {
     @FXML
     private HBox toolbarHBox;
 
+    // In controller:
+    @FXML
+    public void handleOpenProxies() {
+        ProxyManagerWindow.open();
+    }
+
     // ── Add field ────────────────────────────────────────────────────────────────
     @FXML
     private ComboBox<GeminiService.TextModel> modelComboBox;
@@ -94,7 +100,13 @@ public class TertiaryController {
         setupPageList();
         setupWordsTable();
         loadData();
-
+        // ── Model ComboBox ─────────────────────────────────────────────────────
+        modelComboBox.getItems().addAll(GeminiService.TextModel.values());
+        modelComboBox.setValue(ApiKeyManager.loadTextModel());
+        modelComboBox.setOnAction(e -> {
+            ApiKeyManager.saveTextModel(modelComboBox.getValue());
+            AppLogger.info("Text model switched to: " + modelComboBox.getValue());
+        });
         // ── Audio provider picker ──────────────────────────────────────────────
         audioProvider = new ApiKeyManager().loadAudioProvider();
 
@@ -1069,13 +1081,16 @@ public class TertiaryController {
     // Verify cell — button that calls Gemini and shows a confirmation dialog
     // =========================================================================
     private class VerifyCell extends TableCell<TertiaryWordEntry, TertiaryWordEntry> {
-        private final Button verifyBtn = new Button("🔍 Check");
+
+        private final Button verifyBtn = new Button("🔍 Verify");
+        private final Label statusIcon = new Label();
         private final Label spinner = new Label("⏳");
-        private final VBox box = new VBox(4, verifyBtn);
+        private final VBox box = new VBox(4, verifyBtn, statusIcon);
 
         VerifyCell() {
             box.setAlignment(Pos.CENTER);
             verifyBtn.setStyle("-fx-font-size: 10;");
+            statusIcon.setStyle("-fx-font-size: 10;");
 
             verifyBtn.setOnAction(e -> {
                 TertiaryWordEntry item = getItem();
@@ -1084,13 +1099,11 @@ public class TertiaryController {
 
                 GeminiService svc = getGeminiService();
                 if (svc == null) {
-                    showAlert(Alert.AlertType.ERROR, "No API Key", "Set your Gemini API key first.");
+                    new Alert(Alert.AlertType.ERROR, "Set your Gemini API key first.").showAndWait();
                     return;
                 }
 
-                // Show spinner while waiting
                 box.getChildren().setAll(spinner);
-                verifyBtn.setDisable(true);
 
                 Task<GeminiService.VerifyResult> task = new Task<>() {
                     @Override
@@ -1104,38 +1117,58 @@ public class TertiaryController {
 
                 task.setOnSucceeded(ev -> {
                     GeminiService.VerifyResult result = task.getValue();
-                    box.getChildren().setAll(verifyBtn);
-                    verifyBtn.setDisable(false);
+                    box.getChildren().setAll(verifyBtn, statusIcon);
                     Platform.runLater(() -> showVerifyDialog(item, result));
                 });
 
                 task.setOnFailed(ev -> {
-                    box.getChildren().setAll(verifyBtn);
-                    verifyBtn.setDisable(false);
+                    box.getChildren().setAll(verifyBtn, statusIcon);
                     String msg = task.getException() != null
                             ? task.getException().getMessage()
                             : "Unknown error";
-                    Platform.runLater(() -> showAlert(Alert.AlertType.ERROR, "Verify Failed", msg));
+                    AppLogger.error("Verify failed: " + msg);
+                    Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, msg).showAndWait());
                 });
 
-                Thread t = new Thread(task);
-                t.setDaemon(true);
-                t.start();
+                new Thread(task) {
+                    {
+                        setDaemon(true);
+                    }
+                }.start();
             });
         }
 
         private void showVerifyDialog(TertiaryWordEntry item, GeminiService.VerifyResult result) {
-            // Build a clear dialog showing what Gemini found
-            boolean changed = !result.correctedArabic().equals(item.getArabic())
-                    || !result.correctedBangla().equals(item.getBangla());
+            boolean arabicChanged = !result.correctedArabic().equals(item.getArabic());
+            boolean banglaChanged = !result.correctedBangla().equals(item.getBangla());
+            boolean anyChanged = arabicChanged || banglaChanged;
 
+            // ── Determine match type ──────────────────────────────────────────
+            String matchType;
+            String matchColor;
+            if (result.matches() && !anyChanged) {
+                matchType = "✅ Exact Match — word confirmed on page";
+                matchColor = "#27ae60";
+            } else if (result.matches() && anyChanged) {
+                matchType = "🟡 Found on page with corrections";
+                matchColor = "#e67e22";
+            } else {
+                matchType = "❌ Not confirmed on page";
+                matchColor = "#e74c3c";
+            }
+
+            AppLogger.info("Verify [" + item.getArabic() + "]: " + matchType
+                    + " | Note: " + result.note());
+
+            // ── Build dialog ──────────────────────────────────────────────────
             Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
-            dialog.setTitle("Gemini Verification");
-            dialog.setHeaderText(result.matches()
-                    ? "✅ Pair confirmed on page"
-                    : "⚠ Pair not fully confirmed");
+            dialog.setTitle("Verification Result");
+            dialog.setHeaderText(null);
 
-            // Detail grid
+            Label matchLabel = new Label(matchType);
+            matchLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: " + matchColor
+                    + "; -fx-font-size: 12;");
+
             javafx.scene.layout.GridPane grid = new javafx.scene.layout.GridPane();
             grid.setHgap(12);
             grid.setVgap(8);
@@ -1146,72 +1179,82 @@ public class TertiaryController {
             grid.add(bold("Gemini's Version"), 2, 0);
 
             grid.add(new Label("Arabic"), 0, 1);
-            grid.add(highlighted(item.getArabic()), 1, 1);
-            grid.add(highlighted(result.correctedArabic(), changed
-                    && !result.correctedArabic().equals(item.getArabic())), 2, 1);
+            grid.add(plain(item.getArabic()), 1, 1);
+            grid.add(colored(result.correctedArabic(), arabicChanged ? matchColor : null), 2, 1);
 
             grid.add(new Label("Bangla"), 0, 2);
-            grid.add(highlighted(item.getBangla()), 1, 2);
-            grid.add(highlighted(result.correctedBangla(), changed
-                    && !result.correctedBangla().equals(item.getBangla())), 2, 2);
+            grid.add(plain(item.getBangla()), 1, 2);
+            grid.add(colored(result.correctedBangla(), banglaChanged ? matchColor : null), 2, 2);
 
-            grid.add(new Label("Note"), 0, 3);
-            Label noteLabel = new Label(result.note());
-            noteLabel.setWrapText(true);
-            noteLabel.setMaxWidth(340);
-            grid.add(noteLabel, 1, 3, 2, 1);
+            if (!result.note().isBlank()) {
+                grid.add(bold("Note"), 0, 3);
+                Label noteLabel = new Label(result.note());
+                noteLabel.setWrapText(true);
+                noteLabel.setMaxWidth(340);
+                grid.add(noteLabel, 1, 3, 2, 1);
+            }
 
-            dialog.getDialogPane().setContent(grid);
+            VBox content = new VBox(8, matchLabel, grid);
+            content.setPadding(new Insets(4));
+            dialog.getDialogPane().setContent(content);
             dialog.getDialogPane().setPrefWidth(520);
 
-            // Buttons
-            ButtonType btnSave = new ButtonType("💾 Save Gemini Version", ButtonBar.ButtonData.YES);
+            // ── Buttons ───────────────────────────────────────────────────────
+            ButtonType btnAccept = new ButtonType("✅ Accept & Mark Checked", ButtonBar.ButtonData.YES);
             ButtonType btnKeep = new ButtonType("Keep My Version", ButtonBar.ButtonData.NO);
             ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-            if (changed) {
-                dialog.getButtonTypes().setAll(btnSave, btnKeep, btnCancel);
+            if (anyChanged) {
+                dialog.getButtonTypes().setAll(btnAccept, btnKeep, btnCancel);
+            } else if (result.matches()) {
+                // Exact match — just offer to mark checked
+                ButtonType btnCheck = new ButtonType("✅ Mark as Checked", ButtonBar.ButtonData.YES);
+                dialog.getButtonTypes().setAll(btnCheck, ButtonType.CANCEL);
             } else {
-                // Nothing changed — just show OK
                 dialog.getButtonTypes().setAll(ButtonType.OK);
             }
 
             dialog.showAndWait().ifPresent(btn -> {
-                if (btn == btnSave) {
-                    item.setArabic(result.correctedArabic());
-                    item.setBangla(result.correctedBangla());
+                if (btn.getButtonData() == ButtonBar.ButtonData.YES) {
+                    // Apply corrected text if changed
+                    if (arabicChanged)
+                        item.setArabic(result.correctedArabic());
+                    if (banglaChanged)
+                        item.setBangla(result.correctedBangla());
+
+                    // Auto-mark tertiaryChecked = true on confirmation
+                    item.setTertiaryChecked(true);
+
                     syncEntryToMap(currentPage, item.getIndex(), item);
                     saveJsonToFile();
                     markDirty();
                     wordsTable.refresh();
+                    pageListView.refresh();
+
+                    // Update status icon in this cell
+                    statusIcon.setText("✅");
+                    statusIcon.setStyle("-fx-text-fill: " + matchColor + "; -fx-font-size: 11;");
+
+                    AppLogger.success("Verified & checked: " + item.getArabic());
                 }
             });
         }
 
-        // ── Helpers ───────────────────────────────────────────────────────────────
-        private Label bold(String text) {
-            Label l = new Label(text);
+        private Label bold(String t) {
+            Label l = new Label(t);
             l.setStyle("-fx-font-weight: bold;");
             return l;
         }
 
-        private Label highlighted(String text) {
-            return highlighted(text, false);
+        private Label plain(String t) {
+            return new Label(t);
         }
 
-        private Label highlighted(String text, boolean warn) {
-            Label l = new Label(text);
-            if (warn)
-                l.setStyle("-fx-text-fill: #e67e22; -fx-font-weight: bold;");
+        private Label colored(String t, String color) {
+            Label l = new Label(t);
+            if (color != null)
+                l.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
             return l;
-        }
-
-        private void showAlert(Alert.AlertType type, String title, String content) {
-            Alert a = new Alert(type);
-            a.setTitle(title);
-            a.setHeaderText(null);
-            a.setContentText(content);
-            a.showAndWait();
         }
 
         @Override
@@ -1221,6 +1264,14 @@ public class TertiaryController {
                 setGraphic(null);
                 return;
             }
+            // Restore status icon if already checked
+            if (item.isTertiaryChecked()) {
+                statusIcon.setText("✅");
+                statusIcon.setStyle("-fx-text-fill: #27ae60; -fx-font-size: 11;");
+            } else {
+                statusIcon.setText("");
+            }
+            box.getChildren().setAll(verifyBtn, statusIcon);
             setGraphic(box);
         }
     }
